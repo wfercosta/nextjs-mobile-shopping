@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -6,8 +8,33 @@ import {
   ShoppingBagIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
+
+type CustomerType = {
+  zipcode: string;
+  city: string;
+  address: string;
+  loyalty: {
+    points: string;
+    cashback: string;
+  };
+};
 
 export default function Navigation() {
+  let [customer, setCustomer] = useState<CustomerType>();
+
+  useEffect(() => {
+    async function execute() {
+      const res = await fetch(
+        "https://d3u1babc6tucfz.cloudfront.net/api/customer"
+      );
+      const data = await res.json();
+      console.log(data);
+      setCustomer(data as unknown as CustomerType);
+    }
+    execute();
+  }, []);
+
   return (
     <header className=" flex-col">
       <div className="flex justify-between p-5 bg-blue-700">
@@ -25,7 +52,7 @@ export default function Navigation() {
         <div className="flex items-center">
           <MapPinIcon className="w-6 border text-gray-500 " />
           <span className="text-gray-500 text-xs">
-            enviar para <b>99999-999</b>, CITY
+            enviar para <b>{customer?.zipcode}</b>, {customer?.city}
           </span>
         </div>
         <ChevronRightIcon className="w-6 text-gray-500" />

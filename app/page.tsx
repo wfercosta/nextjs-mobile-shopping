@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowPathIcon,
   BanknotesIcon,
@@ -10,33 +12,91 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { CallActionButton, InformationButton } from "./components/buttons";
+import { useEffect, useState } from "react";
+
+type CustomerType = {
+  zipcode: string;
+  city: string;
+  address: string;
+  loyalty: {
+    points: string;
+    cashback: string;
+  };
+};
+
+type PdpType = {
+  name: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+};
+
+type OfferType = {
+  seller: string;
+  price: string;
+  installments: {
+    times: string;
+    value: string;
+  };
+  shipping: {
+    value: string;
+    date: string;
+  };
+};
+
+const baseUrl = "https://d3u1babc6tucfz.cloudfront.net";
 
 export default function Home() {
+  const [customer, setCustomer] = useState<CustomerType>();
+  const [offer, setOffer] = useState<OfferType>();
+  const [pdp, setPdp] = useState<PdpType>();
+
+  useEffect(() => {
+    async function execute() {
+      let res = await fetch(`${baseUrl}/api/customer`);
+      let data = await res.json();
+      console.log(data);
+      setCustomer(data as unknown as CustomerType);
+
+      res = await fetch(`${baseUrl}/api/pdp`);
+      data = await res.json();
+      console.log(data);
+      setPdp(data as unknown as PdpType);
+
+      res = await fetch(`${baseUrl}/api/offer`);
+      data = await res.json();
+      console.log(data);
+      setOffer(data as unknown as OfferType);
+    }
+    execute();
+  }, []);
+
   return (
     <section className="produtct-details">
       <article>
         <section>
           <div className="p-5 space-y-10">
-            <p className="text-gray-500 text-sm">
-              Copo Térmico Stanley Everyday 296ml Branco
-            </p>
+            <p className="text-gray-500 text-sm">{pdp?.name}</p>
             <figure>
-              <Image
-                src={"/assets/stanley-erveryday.png"}
-                width={500}
-                height={500}
-                alt="Copo Térmico Stanley Everyday 296ml Branco"
-              />
-              <figcaption>
-                Copo Térmico Stanley Everyday 296ml Branco
-              </figcaption>
+              {pdp && (
+                <Image
+                  src={pdp.image.url}
+                  width={500}
+                  height={500}
+                  alt={pdp.image.alt}
+                  priority={true}
+                />
+              )}
+              <figcaption>{pdp?.image.alt}</figcaption>
             </figure>
             <div className="flex flex-col text-gray-500 text-xs">
               <span className="text-lg text-orange-500 font-semibold">
-                R$ 185,00
+                {offer?.price}
               </span>
               <span>
-                <b>12x</b> de <b>R$ 15,42</b> sem juros
+                <b>{offer?.installments.times}</b> de&nbsp;
+                <b>{offer?.installments.value}</b> sem juros
               </span>
             </div>
             <div className="flex justify-between text-blue-700 text-xs rounded-sm bg-blue-100 p-2 items-center">
@@ -51,29 +111,30 @@ export default function Home() {
                   <TruckIcon className="w-10" />
                   <div className="flex flex-col">
                     <span>
-                      entrega: <b>R$ 15,18</b>
+                      entrega: <b>{offer?.shipping.value}</b>
                     </span>
                     <span>
-                      <b>quarta-feira 8 de maio</b>
+                      <b>{offer?.shipping.date}</b>
                     </span>
                   </div>
                 </div>
                 <ChevronRightIcon className="w-4 text-gray-400" />
               </div>
-              <div className="line-clamp-1">
-                R. ANY WHERE, 438, ANY NEIBORHOOD, COMPLEMENTS - CITTY - STATE
-              </div>
+              <div className="line-clamp-1">{customer?.address}</div>
             </div>
             <p className="text-gray-500 text-xs">
-              Vendido e entregue por: <b>Top Store</b>
+              Vendido e entregue por: <b>{offer?.seller}</b>
             </p>
             <CallActionButton label="comprar" />
             <div className="text-xs text-gray-500 flex space-x-5">
               <BanknotesIcon className="text-blue-700 w-6" />
               <span>
-                Use o seu saldo de <b>pontos e cashback</b> na hora de pagar:{" "}
-                <span className="text-blue-700">R$ 252,000</span>
-                &nbsp;(5.080 pts)
+                Use o seu saldo de <b>pontos e cashback</b> na hora de
+                pagar:&nbsp;
+                <span className="text-blue-700">
+                  {customer?.loyalty.cashback}
+                </span>
+                &nbsp;({customer?.loyalty.points} pts)
               </span>
             </div>
             <div className="text-xs text-gray-500 flex space-x-5 bg-gray-100  p-4 rounded-lg">
