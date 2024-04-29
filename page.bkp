@@ -1,3 +1,4 @@
+// "use client";
 import {
   ArrowPathIcon,
   BanknotesIcon,
@@ -12,57 +13,57 @@ import Image from "next/image";
 import { CallActionButton, InformationButton } from "./components/buttons";
 import Navigation from "./components/navigation";
 import { CustomerType, OfferType, PdpType } from "./components/types";
+// import { useEffect, useState } from "react";
 
 const baseUrl = "https://d1foq43mo0xvfa.cloudfront.net";
 
-async function getData() {
-  // let res = await fetch(`${baseUrl}/api/customer`);
-  // const customer = await res.json();
-  // console.log(customer);
+async function fetchData() {
+  let res = await fetch(`${baseUrl}/api/customer`);
+  const customer = await res.json();
+  console.log(customer);
 
-  // res = await fetch(`${baseUrl}/api/pdp`);
-  // const pdp = await res.json();
-  // console.log(pdp);
+  res = await fetch(`${baseUrl}/api/pdp`);
+  const pdp = await res.json();
+  console.log(pdp);
 
-  // res = await fetch(`${baseUrl}/api/offer`);
-  // const offer = await res.json();
-  // console.log(offer);
-
-  const pdp = {
-    name: "Copo Térmico Stanley Everyday 296ml Branco",
-    image: {
-      url: "/assets/stanley-erveryday.png",
-      alt: "Copo Térmico Stanley Everyday 296ml Branco",
-    },
-  };
-
-  const customer = {
-    zipcode: "99999-999",
-    city: "CITY",
-    address: "R. ANY WHERE, 438, ANY NEIBORHOOD, COMPLEMENTS - CITY - STATE",
-    loyalty: { points: "5.080", cashback: "R$ 252,000" },
-  };
-
-  const offer = {
-    seller: "Top Store",
-    price: "R$ 185,00",
-    installments: { times: "12x", value: "R$ 15,42" },
-    shipping: {
-      value: "R$ 15,18",
-      date: "quarta-feira 8 de maio",
-    },
-  };
+  res = await fetch(`${baseUrl}/api/offer`);
+  const offer = await res.json();
+  console.log(offer);
 
   return { customer, pdp, offer };
 }
 
 export default async function Home() {
+  // const [customer, setCustomer] = useState<CustomerType>();
+  // const [offer, setOffer] = useState<OfferType>();
+  // const [pdp, setPdp] = useState<PdpType>();
+
+  // useEffect(() => {
+  //   async function execute() {
+  //     let res = await fetch(`${baseUrl}/api/customer`);
+  //     let data = await res.json();
+  //     console.log(data);
+  //     setCustomer(data as unknown as CustomerType);
+
+  //     res = await fetch(`${baseUrl}/api/pdp`);
+  //     data = await res.json();
+  //     console.log(data);
+  //     setPdp(data as unknown as PdpType);
+
+  //     res = await fetch(`${baseUrl}/api/offer`);
+  //     data = await res.json();
+  //     console.log(data);
+  //     setOffer(data as unknown as OfferType);
+  //   }
+  //   execute();
+  // }, []);
+
   const {
     customer,
     pdp,
     offer,
   }: { customer: CustomerType; pdp: PdpType; offer: OfferType } =
-    await getData();
+    await fetchData();
 
   return (
     <>
