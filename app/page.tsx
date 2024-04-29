@@ -1,4 +1,3 @@
-// "use client";
 import {
   ArrowPathIcon,
   BanknotesIcon,
@@ -13,11 +12,10 @@ import Image from "next/image";
 import { CallActionButton, InformationButton } from "./components/buttons";
 import Navigation from "./components/navigation";
 import { CustomerType, OfferType, PdpType } from "./components/types";
-// import { useEffect, useState } from "react";
 
 const baseUrl = "https://d1foq43mo0xvfa.cloudfront.net";
 
-async function fetchData() {
+async function getData() {
   let res = await fetch(`${baseUrl}/api/customer`);
   const customer = await res.json();
   console.log(customer);
@@ -34,36 +32,12 @@ async function fetchData() {
 }
 
 export default async function Home() {
-  // const [customer, setCustomer] = useState<CustomerType>();
-  // const [offer, setOffer] = useState<OfferType>();
-  // const [pdp, setPdp] = useState<PdpType>();
-
-  // useEffect(() => {
-  //   async function execute() {
-  //     let res = await fetch(`${baseUrl}/api/customer`);
-  //     let data = await res.json();
-  //     console.log(data);
-  //     setCustomer(data as unknown as CustomerType);
-
-  //     res = await fetch(`${baseUrl}/api/pdp`);
-  //     data = await res.json();
-  //     console.log(data);
-  //     setPdp(data as unknown as PdpType);
-
-  //     res = await fetch(`${baseUrl}/api/offer`);
-  //     data = await res.json();
-  //     console.log(data);
-  //     setOffer(data as unknown as OfferType);
-  //   }
-  //   execute();
-  // }, []);
-
   const {
     customer,
     pdp,
     offer,
   }: { customer: CustomerType; pdp: PdpType; offer: OfferType } =
-    await fetchData();
+    await getData();
 
   return (
     <>
