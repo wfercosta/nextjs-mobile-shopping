@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -8,33 +6,9 @@ import {
   ShoppingBagIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { CustomerType } from "./types";
 
-type CustomerType = {
-  zipcode: string;
-  city: string;
-  address: string;
-  loyalty: {
-    points: string;
-    cashback: string;
-  };
-};
-
-export default function Navigation() {
-  let [customer, setCustomer] = useState<CustomerType>();
-
-  useEffect(() => {
-    async function execute() {
-      const res = await fetch(
-        "https://d1foq43mo0xvfa.cloudfront.net/api/customer"
-      );
-      const data = await res.json();
-      console.log(data);
-      setCustomer(data as unknown as CustomerType);
-    }
-    execute();
-  }, []);
-
+export default function Navigation({ customer }: { customer?: CustomerType }) {
   return (
     <header className=" flex-col">
       <div className="flex justify-between p-5 bg-blue-700">
