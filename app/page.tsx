@@ -17,21 +17,21 @@ import { useEffect, useState } from "react";
 
 const baseUrl = "https://d1foq43mo0xvfa.cloudfront.net";
 
-export async function fetchData() {
-  let res = await fetch(`${baseUrl}/api/customer`);
-  const customer = await res.json();
-  console.log(customer);
+// export async function fetchData() {
+//   let res = await fetch(`${baseUrl}/api/customer`);
+//   const customer = await res.json();
+//   console.log(customer);
 
-  res = await fetch(`${baseUrl}/api/pdp`);
-  const pdp = await res.json();
-  console.log(pdp);
+//   res = await fetch(`${baseUrl}/api/pdp`);
+//   const pdp = await res.json();
+//   console.log(pdp);
 
-  res = await fetch(`${baseUrl}/api/offer`);
-  const offer = await res.json();
-  console.log(offer);
+//   res = await fetch(`${baseUrl}/api/offer`);
+//   const offer = await res.json();
+//   console.log(offer);
 
-  return { customer, pdp, offer };
-}
+//   return { customer, pdp, offer };
+// }
 
 export default function Home() {
   const [customer, setCustomer] = useState<CustomerType>();
