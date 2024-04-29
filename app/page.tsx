@@ -81,7 +81,7 @@ export default function Home() {
             <figure>
               {pdp && (
                 <Image
-                  src={pdp.image.url}
+                  src={`${baseUrl}${pdp.image.url}`}
                   width={500}
                   height={500}
                   alt={pdp.image.alt}
