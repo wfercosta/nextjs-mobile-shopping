@@ -37,7 +37,6 @@ export default function Home() {
   const [customer, setCustomer] = useState<CustomerType>();
   const [offer, setOffer] = useState<OfferType>();
   const [pdp, setPdp] = useState<PdpType>();
-  const [isLoading, setLoadingState] = useState<boolean>(true);
 
   useEffect(() => {
     async function execute() {
@@ -68,9 +67,7 @@ export default function Home() {
   // }: { customer: CustomerType; pdp: PdpType; offer: OfferType } =
   //   await fetchData();
 
-  return isLoading ? (
-    <p>LOADING</p>
-  ) : (
+  return (
     <>
       <Navigation customer={customer} />
       <main>
