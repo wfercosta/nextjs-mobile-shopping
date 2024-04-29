@@ -54,8 +54,6 @@ export default function Home() {
       data = await res.json();
       console.log(data);
       setOffer(data as unknown as OfferType);
-
-      setLoadingState(false);
     }
     execute();
   }, []);
