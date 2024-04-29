@@ -17,7 +17,7 @@ import { CustomerType, OfferType, PdpType } from "./components/types";
 
 const baseUrl = "https://d1foq43mo0xvfa.cloudfront.net";
 
-export async function fetchData() {
+async function fetchData() {
   let res = await fetch(`${baseUrl}/api/customer`);
   const customer = await res.json();
   console.log(customer);
