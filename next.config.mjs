@@ -1,5 +1,5 @@
 const hostnames = [
-  "d3u1babc6tucfz.cloudfront.net",
+  "d1foq43mo0xvfa.cloudfront.net",
   "nextjs-mobile-shopping.vercel.app",
 ];
 

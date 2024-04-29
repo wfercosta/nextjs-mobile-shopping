@@ -26,7 +26,7 @@ export default function Navigation() {
   useEffect(() => {
     async function execute() {
       const res = await fetch(
-        "https://d3u1babc6tucfz.cloudfront.net/api/customer"
+        "https://d1foq43mo0xvfa.cloudfront.net/api/customer"
       );
       const data = await res.json();
       console.log(data);

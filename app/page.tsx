@@ -45,7 +45,7 @@ type OfferType = {
   };
 };
 
-const baseUrl = "https://d3u1babc6tucfz.cloudfront.net";
+const baseUrl = "https://d1foq43mo0xvfa.cloudfront.net";
 
 export default function Home() {
   const [customer, setCustomer] = useState<CustomerType>();
